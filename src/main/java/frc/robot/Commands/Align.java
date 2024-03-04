@@ -43,8 +43,6 @@ public class Align extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        SmartDashboard.putNumber("called", 1);
-
         var result = photonCamera.getLatestResult();
         boolean hasTargets = result.hasTargets();
         if (hasTargets) {
@@ -59,9 +57,6 @@ public class Align extends Command {
         
 
             if (target.getFiducialId() == 5 || target.getFiducialId() == 7) {         
-                
-                SmartDashboard.putNumber("id", target.getFiducialId());
-
                 double TX = Math.toRadians(target.getYaw());
                 double TY = Math.toRadians(target.getPitch());
 
@@ -85,7 +80,7 @@ public class Align extends Command {
                 //         () -> 1,
                 //         () -> 1, true, false);
                 
-                swerve.drive(new Translation2d(0,0), rot, true);
+                swerve.drive(new Translation2d(0,0), rot, false);
                 
                 if (Constants.smartEnable) {
                     SmartDashboard.putNumber("TX", TX);
